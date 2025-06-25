@@ -28,4 +28,18 @@ import pyautogui
 def get_video_length(video_path):
     try:
         capture = cv2.VideoCapture(video_path)
-        fps = capture.get(cv2.CAP_PRO
+        fps = capture.get(cv2.CAP_PROP_FPS)
+        frame_count = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
+        duration = frame_count / fps if fps != 0 else 0
+        capture.release()
+        return duration - 0.3
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+################################  
+
+
+
+#Function to check wifi connectivity
+def check_wifi_connectivity():
+    try:
