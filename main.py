@@ -3,52 +3,6 @@ import cv2
 import subprocess
 import time
 import platform
-import requests
-import os
-
-# JSON API endpoint
-api_url = "Your_API_URL" # Replace with your API endpoint URL
-video_files = []
-
-# Specify the directory to save the videos
-save_directory = "C:/Users/YayhaKhan/Desktop/HACKCLUB"
-
-# Make a GET request to the API
-response = requests.get(api_url)
-
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Parse the JSON response
-    videos = response.json()
-    
-    # Iterate through the videos
-    for video in videos:
-        # Get the video URL and other attributes
-        id = video['id']
-        video_url = video['videoLink']
-        video_name = video['brandName']
-        video_file_name = id + video_name + '.mp4'
-        video_file_path = os.path.join(save_directory, video_file_name)
-        new_videopath = f"C:/Users/YayhaKhan/Desktop/HACKCLUB/{video_file_name}" 
-        video_files.append(new_videopath)
-        # Check if the video has already been downloaded
-        if os.path.exists(video_file_path):
-            print(f"Video '{video_file_name}' already exists. Skipping...")
-            continue
-
-        # Download the video
-        video_file = requests.get(video_url)
-
-        # Save the video to a file
-        with open(video_file_path, 'wb') as f:
-            f.write(video_file.content)
-
-        print(f"Downloaded video: {video_file_name}")
-
-else:
-    print("Error occurred while accessing the API.")
-   
-   
 
 def get_video_length(video_path):
     try:
@@ -82,7 +36,14 @@ def play_videos(video_files, end_date):
     except Exception as e:
         print("An error occurred:", e)
 
-print(video_files)
-end_date = datetime(2023, 6, 28, 18,24)
+
+# Provide a list of video files to play
+video_files = [
+    'C:/Users/YayhaKhan/Desktop/HACKCLUB/Animation.mp4',
+    'C:/Users/YayhaKhan/Desktop/HACKCLUB/1Maybelline.mp4',
+    'C:/Users/YayhaKhan/Desktop/HACKCLUB/2Hertzsoft.mp4'
+]
+
+end_date = datetime(2023, 6, 28, 15, 41)
 # Call the function to play the videos
 play_videos(video_files, end_date)
