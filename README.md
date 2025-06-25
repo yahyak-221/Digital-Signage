@@ -1,1 +1,46 @@
-I worked on setting up Raspberry Pi devices to be used for digital signage. This included installing the required software, setting up the display screens, and making sure the content (like images, videos, or web pages) showed correctly on the screens. I used Python to write scripts that helped control what was shown, when it was shown, and also to manage updates automatically.  Along with that, I also worked on automation tasks using both Python and PHP. This involved writing small programs or scripts that did repeated jobs by themselves, like moving files, sending data between systems, or updating information on websites without needing to do it manually each time. These scripts helped save time and reduce errors in regular tasks.
+As part of the project to deploy Raspberry Pi devices for digital signage, I have completed the following key steps:
+
+Raspberry Pi Setup
+Installed the appropriate operating system (e.g., Raspberry Pi OS) on multiple Raspberry Pi units.
+
+Connected each device to display screens via HDMI, ensuring resolution and display settings were properly configured.
+
+Network Configuration
+Set up stable Wi-Fi connections on all devices to enable remote access.
+
+Configured SSH and VNC for easier monitoring, file transfers, and remote updates.
+
+Python Environment
+Installed and configured essential Python libraries required for media display and control (e.g., pygame, omxplayer-wrapper, or similar).
+
+Set up a virtual environment for organized script management.
+
+Basic Display Script
+Developed a Python script that loops through image and video files from a designated folder.
+
+Ensured smooth transitions and reliable media playback without manual intervention.
+
+Initial Automation
+Wrote automation scripts using both Python and PHP to:
+
+Automatically detect new content in a local folder.
+
+Replace or update display files based on time or folder changes.
+
+Push updates to the Raspberry Pi or display them dynamically.
+
+Testing
+Conducted initial testing on a single screen setup to verify:
+
+Correct boot-up behavior.
+
+Media playback loop functionality.
+
+Automated content updates.
+
+Confirmed that both the display and update automation work as intended in a real-world scenario.
+
+Syslog Integration (Completed Previously)
+Completed syslog configuration and integration for centralized logging.
+
+Set up log forwarding from Raspberry Pi devices to a syslog server for easier monitoring and diagnostics.
