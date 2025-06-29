@@ -1,0 +1,169 @@
+:root {
+  --bg-light: #eef2f3;
+  --bg-dark: #1e1e1e;
+  --text-light: #333;
+  --text-dark: #f2f2f2;
+  --card-light: #ffffff;
+  --card-dark: #2a2a2a;
+  --input-light: #fdfdfd;
+  --input-dark: #3b3b3b;
+  --border-light: #ccc;
+  --border-dark: #555;
+  --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Apply dark mode via class */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background 0.3s, color 0.3s;
+  padding: 20px;
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: var(--card-light);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transition: background 0.3s ease;
+}
+
+body.dark-mode .container {
+  background: var(--card-dark);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 15px;
+  display: block;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background-color: var(--input-light);
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="datetime-local"] {
+  background-color: var(--input-dark);
+  border-color: var(--border-dark);
+  color: white;
+}
+
+input:focus {
+  outline: none;
+  border-color: #00c6ff;
+}
+
+/* Checkbox */
+.checkbox {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+button {
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+}
+
+button:active {
+  transform: scale(0.97);
+  box-shadow: none;
+}
+
+#statusOutput {
+  margin-top: 25px;
+  padding: 12px;
+  height: 180px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 13px;
+  overflow-y: auto;
+  border: 1px solid #dcdcdc;
+  white-space: pre-wrap;
+}
+
+body.dark-mode #statusOutput {
+  background-color: #2f2f2f;
+  color: #dcdcdc;
+  border-color: #444;
+}
+
+/* Loader Spinner */
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toggle Button */
+.toggle-switch {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.toggle-switch button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.toggle-switch button:hover {
+  background-color: #555;
+}

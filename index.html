@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RPi Video Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="toggle-switch">
+            <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+        </div>
+        <h2>🎬 RPi Video Manager</h2>
+
+        <label for="apiUrl">API URL</label>
+        <input type="text" id="apiUrl" placeholder="https://your.api.url">
+
+        <label for="endTime">End Time</label>
+        <input type="datetime-local" id="endTime">
+
+        <div class="checkbox">
+            <input type="checkbox" id="screenshotToggle">
+            <label for="screenshotToggle">Enable Screenshots</label>
+        </div>
+
+        <div class="button-group">
+            <button onclick="startDownload()">Download</button>
+            <button onclick="startPlayback()">Start</button>
+            <button onclick="stopPlayback()">Stop</button>
+            <button onclick="viewLogs()">Logs</button>
+        </div>
+
+        <div id="statusOutput"></div>
+    </div>
+
+    <div id="nowPlaying"></div>
+    <div id="spinner" style="display:none;" class="loader"></div>
+
+
+    <script src="./js.js"></script>
+</body>
+
+</html>
