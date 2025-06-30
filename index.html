@@ -9,18 +9,17 @@
 </head>
 
 <body>
-
     <div class="container">
         <div class="toggle-switch">
             <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
         </div>
+
         <h2>🎬 RPi Video Manager</h2>
 
-        <label for="apiUrl">API URL</label>
-        <input type="text" id="apiUrl" placeholder="https://your.api.url">
-
-        <label for="endTime">End Time</label>
-        <input type="datetime-local" id="endTime">
+        <!-- Video Upload -->
+        <label for="videoUpload">Upload Video</label>
+        <input type="file" id="videoUpload" multiple accept="video/*" onchange="saveToLocalFolder()" />
+        <small style="color:gray;">Selected files will be moved to the videos folder automatically.</small>
 
         <div class="checkbox">
             <input type="checkbox" id="screenshotToggle">
@@ -28,7 +27,7 @@
         </div>
 
         <div class="button-group">
-            <button onclick="startDownload()">Download</button>
+            <button onclick="uploadVideos()">Upload</button>
             <button onclick="startPlayback()">Start</button>
             <button onclick="stopPlayback()">Stop</button>
             <button onclick="viewLogs()">Logs</button>
@@ -38,10 +37,9 @@
     </div>
 
     <div id="nowPlaying"></div>
-    <div id="spinner" style="display:none;" class="loader"></div>
-
-
-    <script src="./js.js"></script>
+    <div id="spinner" class="loader" style="display: none;"></div>
 </body>
+
+<script src="./js.js"></script>
 
 </html>

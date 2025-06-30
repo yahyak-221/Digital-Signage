@@ -4,53 +4,35 @@ function appendStatus(message) {
   output.scrollTop = output.scrollHeight;
 }
 
-function startDownload() {
-  const apiUrl = document.getElementById("apiUrl").value;
-  fetch("/download", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ api_url: apiUrl }),
-  })
-    .then((res) => res.text())
-    .then((msg) => appendStatus(msg))
-    .catch((err) => appendStatus("Error: " + err));
-}
-
 function startPlayback() {
-  const endTime = document.getElementById("endTime").value;
   const screenshots = document.getElementById("screenshotToggle").checked;
-  fetch("/start-playback", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ end_time: endTime, screenshots: screenshots }),
-  })
-    .then((res) => res.text())
-    .then((msg) => appendStatus(msg))
-    .catch((err) => appendStatus("Error: " + err));
-  document.getElementById("spinner").style.display = "block";
   appendStatus("Starting playback...");
-  fetch("/start-playback", {
+
+  fetch("http://localhost:8080/start-playback", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ end_time: endTime, screenshots: screenshots }),
+    body: JSON.stringify({ screenshots: screenshots }),
   })
     .then((res) => res.text())
     .then((msg) => {
       appendStatus(msg);
       document.getElementById("spinner").style.display = "none";
       document.getElementById("nowPlaying").innerText = "🎞️ Now Playing...";
-    });
+    })
+    .catch((err) => appendStatus("Error: " + err));
+
+  document.getElementById("spinner").style.display = "block";
 }
 
 function stopPlayback() {
-  fetch("/stop", { method: "POST" })
+  fetch("http://localhost:8080/stop", { method: "POST" })
     .then((res) => res.text())
     .then((msg) => appendStatus(msg))
     .catch((err) => appendStatus("Error: " + err));
 }
 
 function viewLogs() {
-  fetch("/logs")
+  fetch("http://localhost:8080/logs")
     .then((res) => res.json())
     .then((logs) => {
       appendStatus("---- Video Logs ----");
@@ -62,15 +44,79 @@ function viewLogs() {
 }
 
 function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-  // Optional: Save preference
-  const isDark = document.body.classList.contains("dark-mode");
+  const body = document.body;
+  const isDark = body.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", isDark);
 }
 
-// Load preference on page load
-window.onload = function () {
-  if (localStorage.getItem("darkMode") === "true") {
+function setInitialTheme() {
+  const prefersDark = localStorage.getItem("darkMode") === "true";
+  if (prefersDark) {
     document.body.classList.add("dark-mode");
+  } else {
+    document.body.classList.remove("dark-mode");
   }
-};
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setInitialTheme();
+  document
+    .getElementById("darkModeToggle")
+    .addEventListener("click", toggleDarkMode);
+});
+
+function saveToLocalFolder() {
+  const input = document.getElementById("videoUpload");
+  const statusOutput = document.getElementById("statusOutput");
+  const spinner = document.getElementById("spinner");
+
+  spinner.style.display = "block";
+
+  if (input.files.length === 0) {
+    statusOutput.innerText = "No file selected.";
+    spinner.style.display = "none";
+    return;
+  }
+
+  const fileArray = Array.from(input.files).map((f) => f.name);
+  statusOutput.innerText =
+    "Please manually move selected files to the 'videos' folder:";
+  fileArray.forEach((file) => {
+    statusOutput.innerText += `\n• ${file}`;
+  });
+
+  spinner.style.display = "none";
+}
+
+function uploadVideos() {
+  const input = document.getElementById("videoUpload");
+  const statusOutput = document.getElementById("statusOutput");
+  const spinner = document.getElementById("spinner");
+
+  if (input.files.length === 0) {
+    statusOutput.innerText = "No video selected.";
+    return;
+  }
+
+  spinner.style.display = "block";
+  appendStatus("Uploading videos...");
+
+  const formData = new FormData();
+  for (const file of input.files) {
+    formData.append("videos[]", file);
+  }
+
+  fetch("http://localhost:8080/upload", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.text())
+    .then((msg) => {
+      appendStatus(msg);
+      spinner.style.display = "none";
+    })
+    .catch((err) => {
+      appendStatus("Error: " + err);
+      spinner.style.display = "none";
+    });
+}
